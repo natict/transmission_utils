@@ -1,0 +1,2 @@
+transmissionrpc==0.11
+
