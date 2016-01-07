@@ -19,10 +19,10 @@ def main():
     except TransmissionError as e:
         print 'Unable to create Transmission client ({})'.format(str(e))
         sys.exit(1)
-    torrents_to_remove = [tid for tid, t in client.list().iteritems() if t.progress == 100.0]
+    torrents_to_remove = [t.id for t in client.get_torrents() if t.progress == 100.0]
 
     if torrents_to_remove:
-        print 'Removing: {}'.format(', '.join(torrents_to_remove))
+        print 'Removing {} torrents'.format(str(len(torrents_to_remove)))
         client.remove_torrent(ids=torrents_to_remove, delete_data=False)
     else:
         print 'No completed torrents found'
@@ -30,4 +30,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
